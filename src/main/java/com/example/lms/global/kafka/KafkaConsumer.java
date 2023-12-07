@@ -21,7 +21,7 @@ public class KafkaConsumer {
         Map<Object, Object> map;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            map = mapper.readValue(kafkaMessage, new TypeReference<>() {}); // Json 형태의 string -> json
+            map = mapper.readValue(kafkaMessage, new TypeReference<>() {}); 
             String action = (String) map.get("kafkaAction");
             if (action.equals(KafkaAction.CREATE.name())) {
                 Member save = Member.builder()
