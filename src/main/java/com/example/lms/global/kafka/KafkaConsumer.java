@@ -21,9 +21,10 @@ public class KafkaConsumer {
         Map<Object, Object> map;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            map = mapper.readValue(kafkaMessage, new TypeReference<>() {}); 
+            map = mapper.readValue(kafkaMessage, new TypeReference<>() {});
             String action = (String) map.get("kafkaAction");
             if (action.equals(KafkaAction.CREATE.name())) {
+                System.out.println("무야호");
                 Member save = Member.builder()
                         .id((String) map.get("id"))
                         .name((String) map.get("name"))

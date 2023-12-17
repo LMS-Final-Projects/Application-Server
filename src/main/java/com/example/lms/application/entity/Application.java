@@ -17,7 +17,8 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String LectureName;
+    private Long lectureId;
+    private String lectureName;
     private String professorName;
     private Status status;
 
