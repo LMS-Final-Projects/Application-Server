@@ -1,0 +1,19 @@
+POST http://localhost:2000/api/v1/application
+Content-Type: application/json
+
+{
+  "lectureId" : 7,
+  "lectureName" : "수학",
+  "professorName" : "김봉수",
+  "maximumNumber" : 10
+}
+
+###
+
+DELETE http://localhost:2000/api/v1/application
+Content-Type: application/json
+
+{
+  "lectureId" : 7,
+  "memberId" : "ee18d05a-f64f-4bc2-8f34-54abeb466583"
+}
