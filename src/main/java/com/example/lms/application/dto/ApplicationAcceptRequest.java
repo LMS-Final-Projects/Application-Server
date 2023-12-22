@@ -9,10 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApplicationRequest {
-    private Long lectureId;
-    private String lectureName;
-    private String professorName;
-    private Long maximumNumber;
-    private Integer score;
+public class ApplicationAcceptRequest {
+    private Long applicationId;
 }

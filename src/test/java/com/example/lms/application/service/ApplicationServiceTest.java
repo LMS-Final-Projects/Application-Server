@@ -40,7 +40,7 @@ class ApplicationServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    applicationService.apply(application);
+                    applicationService.apply(application,"test");
                 } finally {
                     latch.countDown();
                 }
