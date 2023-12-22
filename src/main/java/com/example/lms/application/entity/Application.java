@@ -16,11 +16,16 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long lectureId;
     private String lectureName;
     private String professorName;
+    private Integer score;
+    private Long maximumNumber;
     private Status status;
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
