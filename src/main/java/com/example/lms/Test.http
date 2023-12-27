@@ -1,19 +1,45 @@
+
+###수강 신청
 POST http://localhost:2000/api/v1/application
 Content-Type: application/json
+member-id: 65b7ab4e-6e6f-4613-8a62-075c040a36c8
 
 {
-  "lectureId" : 7,
-  "lectureName" : "수학",
-  "professorName" : "김봉수",
-  "maximumNumber" : 10
+  "lectureId": 1,
+  "lectureName": "실용 체육",
+  "professorName": "김봉수",
+  "maximumNumber": 20,
+  "weekday": {
+  },
+  "score": 4
 }
 
-###
 
+
+###수강 취소
 DELETE http://localhost:2000/api/v1/application
 Content-Type: application/json
 
 {
   "lectureId" : 7,
-  "memberId" : "ee18d05a-f64f-4bc2-8f34-54abeb466583"
+  "memberId" : "65b7ab4e-6e6f-4613-8a62-075c040a36c8"
+}
+
+###수강 허가
+POST http://localhost:2000/api/v1/manager/application/accepted
+Content-Type: application/json
+
+{
+  "applicationId": 5,
+  "lectureId": 1,
+  "lectureName": "실용 체육",
+  "professorName": "김봉수",
+  "maximumNumber": 10,
+  "weekday": {
+    "memberId": "65b7ab4e-6e6f-4613-8a62-075c040a36c8",
+    "times": [1, 2, 3, 4],
+    "lecturesByDay": ["실용 체육", "실용 체육", "실용 체육", "실용 체육"]
+  },
+  "score": 4,
+  "memberId" : "65b7ab4e-6e6f-4613-8a62-075c040a36c8"
 }

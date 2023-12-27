@@ -1,5 +1,6 @@
 package com.example.lms.application.dto;
 
+import com.example.lms.application.entity.WeekDay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,5 +15,7 @@ public class ApplicationRequest {
     private String lectureName;
     private String professorName;
     private Long maximumNumber;
+    private WeekDay weekday;
+    private Integer startTime;
     private Integer score;
 }

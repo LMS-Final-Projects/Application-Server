@@ -21,6 +21,9 @@ public class Application {
     private String professorName;
     private Integer score;
     private Long maximumNumber;
+    private Integer startTime;
+    @OneToOne
+    private WeekDay weekday;
     private Status status;
 
     public void setStatus(Status status) {

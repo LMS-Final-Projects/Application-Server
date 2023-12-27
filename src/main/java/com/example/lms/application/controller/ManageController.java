@@ -25,6 +25,7 @@ public class ManageController {
         return new LmsResponse<>(HttpStatus.OK, response, "조회 성공", "", LocalDateTime.now());
     }
 
+
     // 수강신청 승인
     @PostMapping("/accepted")
     public void accept(@RequestBody ApplicationAcceptRequest request){

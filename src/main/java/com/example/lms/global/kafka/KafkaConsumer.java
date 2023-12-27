@@ -16,7 +16,7 @@ public class KafkaConsumer {
 
     private final MemberRepository memberRepository;
 
-    @KafkaListener(topics = "member", groupId = "group_1")
+    @KafkaListener(topics = "member", groupId = "application_1")
     public void listener(String kafkaMessage) {
         Map<Object, Object> map;
         ObjectMapper mapper = new ObjectMapper();
