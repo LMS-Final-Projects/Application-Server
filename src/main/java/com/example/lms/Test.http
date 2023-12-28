@@ -2,16 +2,17 @@
 ###수강 신청
 POST http://localhost:2000/api/v1/application
 Content-Type: application/json
-member-id: 65b7ab4e-6e6f-4613-8a62-075c040a36c8
+member-id: 3d8292e0-1de4-472d-b94f-64806842e8f5
 
 {
   "lectureId": 1,
   "lectureName": "실용 체육",
   "professorName": "김봉수",
   "maximumNumber": 20,
-  "weekday": {
-  },
-  "score": 4
+  "weekday": "MONDAY",
+  "score": 4,
+  "semester": "SECOND",
+  "startTime": 1
 }
 
 

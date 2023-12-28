@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -22,8 +24,9 @@ public class Application {
     private Integer score;
     private Long maximumNumber;
     private Integer startTime;
-    @OneToOne
-    private WeekDay weekday;
+    private DayOfWeek dayOfWeek;
+    private Semester semester;
+    private Integer year;
     private Status status;
 
     public void setStatus(Status status) {

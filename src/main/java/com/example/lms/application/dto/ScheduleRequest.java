@@ -1,8 +1,6 @@
 package com.example.lms.application.dto;
 
-
 import com.example.lms.application.entity.Semester;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,4 +14,5 @@ public class ScheduleRequest {
     private String memberId;
     private Semester semester;
     private Integer year;
+
 }

@@ -4,12 +4,10 @@ import com.example.lms.application.dto.ApplicationCancelRequest;
 import com.example.lms.application.dto.ApplicationRequest;
 import com.example.lms.application.dto.ApplicationResponse;
 import com.example.lms.application.dto.DeleteRequest;
-import com.example.lms.application.entity.Application;
-import com.example.lms.application.entity.Member;
-import com.example.lms.application.entity.Status;
-import com.example.lms.application.entity.WeekDay;
+import com.example.lms.application.entity.*;
 import com.example.lms.application.repository.ApplicationRepository;
 import com.example.lms.application.repository.CheckRepository;
+import com.example.lms.application.repository.LectureRepository;
 import com.example.lms.application.repository.MemberRepository;
 import com.example.lms.global.exception.DuplicateException;
 import com.example.lms.global.exception.NotFoundException;
@@ -29,18 +27,21 @@ import java.util.stream.IntStream;
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
+    private final LectureRepository lectureRepository;
     private final CheckRepository checkRepository;
     private final MemberRepository memberRepository;
     private final KafkaProducer kafkaProducer;
 
-    public List<ApplicationResponse> getList(String memberId, boolean accept) {
+    public List<ApplicationResponse> getList(String memberId, String role, String name, boolean accept) {
 
         List<Application> applicationList = null;
 
         if (accept) {
             applicationList = applicationRepository.findByMemberIdAndStatus(memberId, Status.ACCEPTED);
-        } else {
+        } else if("STUDENT".equals(role)){
             applicationList = applicationRepository.findByMemberId(memberId);
+        } else {
+            applicationList = applicationRepository.findByProfessorName(name);
         }
 
         return applicationList.stream()
@@ -49,32 +50,40 @@ public class ApplicationService {
     }
 
 
+
+
     @Transactional
     public void apply(ApplicationRequest request, String memberId) {
 
         Long count = checkRepository.increment(request.getLectureId());
-
-        if (count > request.getMaximumNumber()) {
-            System.out.println("1");
-            return;
-        }
-
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new NotFoundException("일치하는 회원이 없습니다.")
         );;
 
+        Lecture lecture = lectureRepository.findByLectureId(request.getLectureId()).orElseThrow(
+                () -> new NotFoundException("과목이 없습니다."));
+
+        if (count > lecture.getMaximumNumber()) {
+            System.out.println("1");
+            return;
+        }
+
         System.out.println("2");
+
         Application application = Application.builder()
                 .lectureId(request.getLectureId())
-                .lectureName(request.getLectureName())
-                .professorName(request.getProfessorName())
-                .score(request.getScore())
-                .maximumNumber(request.getMaximumNumber())
-                .startTime(request.getStartTime())
-                .weekday(request.getWeekday())
+                .lectureName(lecture.getLectureName())
+                .professorName(lecture.getProfessorName())
+                .score(lecture.getScore())
+                .maximumNumber(lecture.getMaximumNumber())
+                .startTime(lecture.getStartTime())
+                .dayOfWeek(lecture.getDayOfWeek())
                 .status(Status.PENDING)
+                .year(lecture.getYear())
+                .semester(lecture.getSemester())
                 .member(member)
                 .build();
+
         System.out.println("3");
         applicationRepository.save(application);
         
@@ -97,23 +106,24 @@ public class ApplicationService {
         checkRepository.decrement(request.getLectureId());
     }
 
-    @Transactional
-    public void test(ApplicationRequest request) {
-
-        Long count = applicationRepository.count();
-
-        if (count > request.getMaximumNumber()) {
-            return;
-        }
-
-        Application application = Application.builder()
-                .lectureId(request.getLectureId())
-                .lectureName(request.getLectureName())
-                .professorName(request.getProfessorName())
-                .build();
-
-        applicationRepository.save(application);
-    }
+//    @Transactional
+//    public void test(ApplicationRequest request) {
+//
+//
+//        Long count = applicationRepository.count();
+//
+//        if (count > request.getMaximumNumber()) {
+//            return;
+//        }
+//
+//        Application application = Application.builder()
+//                .lectureId(request.getLectureId())
+//                .lectureName(request.getLectureName())
+//                .professorName(request.getProfessorName())
+//                .build();
+//
+//        applicationRepository.save(application);
+//    }
 
 
 

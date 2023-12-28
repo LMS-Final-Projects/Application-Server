@@ -1,6 +1,6 @@
-package com.example.lms.global.kafka;
-import com.example.lms.application.entity.WeekDay;
-import jakarta.persistence.OneToMany;
+package com.example.lms.application.entity;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,24 +8,26 @@ import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;
 import java.util.List;
-import java.util.UUID;
 
-@Builder
+
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class KafkaLecture {
+@Builder
+public class Lecture {
 
-    private String memberId;
+    @Id
     private Long lectureId;
+    private String memberId;
     private String lectureName;
     private String professorName;
+    private Long maximumNumber;
     private Integer score;
-    private Integer startTime;
+    private Integer startTime; //시작 시간
+    private Integer year;
+    private Semester semester;
+    @ElementCollection
     private List<Integer> classTimes; // 해당 교시
     private DayOfWeek dayOfWeek;
-    private Long maximumNumber;
-    private KafkaAction kafkaAction;
-
 }
-

@@ -1,12 +1,15 @@
 package com.example.lms.application.entity;
 
 
+import com.example.lms.global.kafka.KafkaAction;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Map;
 
@@ -24,16 +27,9 @@ public class WeekDay {
     @Column
     private String memberId;
 
-    @ElementCollection
-    @CollectionTable(name = "times", joinColumns = @JoinColumn(name = "weekday_id"))
-    @Column(name = "time")
-    private List<Integer> times;
+    @Column
+    private DayOfWeek dayOfWeek; //월, 화, 수, 목, 금
 
-    @ElementCollection
-    @CollectionTable(name = "lecture_info", joinColumns = @JoinColumn(name = "weekday_id"))
-    @Column(name = "lecture_info")
-    private List<String> lecturesByDay;
-
-
+    @OneToMany
+    private List<Lecture> lectures; //과목 정보들.
 }
-
