@@ -49,16 +49,13 @@ public class ApplicationService {
                 .toList();
     }
 
-
-
-
     @Transactional
     public void apply(ApplicationRequest request, String memberId) {
 
         Long count = checkRepository.increment(request.getLectureId());
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new NotFoundException("일치하는 회원이 없습니다.")
-        );;
+        );
 
         Lecture lecture = lectureRepository.findByLectureId(request.getLectureId()).orElseThrow(
                 () -> new NotFoundException("과목이 없습니다."));

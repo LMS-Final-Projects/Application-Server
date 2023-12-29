@@ -21,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,10 +45,9 @@ public class ManageService {
 
     @Transactional
     public void accept(ApplicationAcceptRequest request) {
-        Application application = applicationRepository.findByMemberIdAndId(request.getMemberId(),request.getApplicationId())
-                .orElseThrow( () -> new NotFoundException("권한이 없거나 없는 수강신청 입니다.") );
+        Application application = applicationRepository.findById(request.getApplicationId())
+                .orElseThrow( () -> new NotFoundException("없는 수강신청 입니다.") );
         application.setStatus(Status.ACCEPTED);
-
 
         List<Integer> classTimes = new ArrayList<>();
         int start = application.getStartTime();
@@ -83,7 +81,6 @@ public class ManageService {
             throw new DuplicateException("이미 해당 시간에 수업이 있습니다.");
         }
 
-
         KafkaLecture kafkaLecture = KafkaLecture.builder()
                 .memberId(request.getMemberId())
                 .lectureId(lecture.getLectureId())
@@ -96,8 +93,6 @@ public class ManageService {
                 .dayOfWeek(lecture.getDayOfWeek())
                 .kafkaAction(KafkaAction.CREATE)
                 .build();
-
-
 
         KafkaWeekDay kafkaWeekDay = KafkaWeekDay.builder()
                 .memberId(request.getMemberId())
