@@ -14,8 +14,8 @@ import java.time.DayOfWeek;
 @AllArgsConstructor
 @Builder
 public class ApplicationAcceptRequest {
-    private Long applicationId;
-    private Long lectureId;
+    private Integer applicationId;
+    private Integer lectureId;
     private String memberId;
 
     public ScheduleRequest toSchedule(Application application){
@@ -23,6 +23,7 @@ public class ApplicationAcceptRequest {
         ScheduleRequest build = ScheduleRequest.builder()
                 .memberId(memberId)
                 .year(application.getYear())
+                .lectureId(application.getLectureId())
                 .semester(application.getSemester())
                 .build();
 

@@ -32,12 +32,18 @@ public class ApplicationService {
     private final MemberRepository memberRepository;
     private final KafkaProducer kafkaProducer;
 
+    @Transactional
     public List<ApplicationResponse> getList(String memberId, String role, String name, boolean accept) {
+
+        System.out.println("memberId: " + memberId);
+        System.out.println("role: " + role);
+        System.out.println("name: " + name);
+        System.out.println("accept: " + accept);
 
         List<Application> applicationList = null;
 
-        if (accept) {
-            applicationList = applicationRepository.findByMemberIdAndStatus(memberId, Status.ACCEPTED);
+        if (!accept) {
+            applicationList = applicationRepository.findByMemberIdAndStatus(memberId, Status.PENDING);
         } else if("STUDENT".equals(role)){
             applicationList = applicationRepository.findByMemberId(memberId);
         } else {

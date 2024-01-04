@@ -2,16 +2,16 @@
 ###수강 신청
 POST http://localhost:2000/api/v1/application
 Content-Type: application/json
-member-id: 3d8292e0-1de4-472d-b94f-64806842e8f5
+member-id: 08514078-3d35-41ce-90ee-d4954c5764e9
 
 {
-  "lectureId": 1,
-  "lectureName": "실용 체육",
-  "professorName": "김봉수",
-  "maximumNumber": 20,
-  "weekday": "MONDAY",
+  "lectureId": 1003,
+  "lectureName": "실용 음악1",
+  "professorName": "교수1",
+  "maximumNumber": 10,
+  "weekday": "TURSDAY",
   "score": 4,
-  "semester": "SECOND",
+  "semester": "FIRST",
   "startTime": 1
 }
 
@@ -22,8 +22,8 @@ DELETE http://localhost:2000/api/v1/application
 Content-Type: application/json
 
 {
-  "lectureId" : 7,
-  "memberId" : "65b7ab4e-6e6f-4613-8a62-075c040a36c8"
+  "lectureId" : 1004,
+  "memberId" : "08514078-3d35-41ce-90ee-d4954c5764e9"
 }
 
 ###수강 허가
@@ -31,16 +31,8 @@ POST http://localhost:2000/api/v1/manager/application/accepted
 Content-Type: application/json
 
 {
-  "applicationId": 5,
-  "lectureId": 1,
-  "lectureName": "실용 체육",
-  "professorName": "김봉수",
-  "maximumNumber": 10,
-  "weekday": {
-    "memberId": "65b7ab4e-6e6f-4613-8a62-075c040a36c8",
-    "times": [1, 2, 3, 4],
-    "lecturesByDay": ["실용 체육", "실용 체육", "실용 체육", "실용 체육"]
-  },
-  "score": 4,
-  "memberId" : "65b7ab4e-6e6f-4613-8a62-075c040a36c8"
+  "applicationId": 2,
+  "lectureId": 1003,
+  "memberId": "08514078-3d35-41ce-90ee-d4954c5764e9"
 }
+

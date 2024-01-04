@@ -1,7 +1,6 @@
 package com.example.lms.global.kafka;
 
 import com.example.lms.application.entity.Lecture;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class KafkaWeekDay {
 
     private DayOfWeek dayOfWeek;
 
-    private List<Lecture> lectures;
+    private Integer lectureId;
 
     private KafkaAction kafkaAction;
 }
