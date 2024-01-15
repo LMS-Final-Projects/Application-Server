@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,10 +47,16 @@ public class ManageService {
 
     @Transactional
     public void accept(ApplicationAcceptRequest request) {
+
+        Application application = applicationRepository.findById(request.getApplicationId())
+                .orElseThrow( () -> new NotFoundException("없는 수강신청 입니다.") );
+        application.setStatus(Status.ACCEPTED);
+
         Application application = applicationRepository.findByMemberIdAndId(request.getMemberId(),request.getApplicationId())
                 .orElseThrow( () -> new NotFoundException("권한이 없거나 없는 수강신청 입니다.") );
 
         System.out.println("1 :" +application);
+
 
         List<Integer> classTimes = new ArrayList<>();
         int start = application.getStartTime();
@@ -86,6 +91,7 @@ public class ManageService {
         weekdayRepository.save(weekDayUpdate);
 
         System.out.println("3");
+
 
         KafkaLecture kafkaLecture = KafkaLecture.builder()
                 .memberId(request.getMemberId())
