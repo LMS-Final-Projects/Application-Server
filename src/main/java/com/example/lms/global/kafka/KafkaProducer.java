@@ -15,6 +15,20 @@ public class KafkaProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
+    public KafkaWeekDay saveWeekDay(String topic, KafkaWeekDay kafkaWeekDay) {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = "";
+
+        try {
+            jsonInString = mapper.writeValueAsString(kafkaWeekDay);
+        } catch (JsonProcessingException ex) {
+            ex.printStackTrace();
+        }
+
+        kafkaTemplate.send(topic, jsonInString);
+        return kafkaWeekDay;
+    }
+
     public KafkaLecture saveLecture(String topic, KafkaLecture kafkaMember) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";

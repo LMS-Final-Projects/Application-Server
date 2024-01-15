@@ -14,15 +14,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-    @RequestMapping("/api/v1/application")
+@RequestMapping("/api/v1/application")
 public class ApplicationController {
 
     private final ApplicationService applicationService;
 
     // 수강신청 목록 보기
     @GetMapping
-    public LmsResponse<List<ApplicationResponse>> getList(@RequestHeader(value = "member-id") String memberId){
-        List<ApplicationResponse> response = applicationService.getList(memberId,false);
+    public LmsResponse<List<ApplicationResponse>> getList(@RequestHeader(value = "member-id") String memberId, @RequestHeader(value = "role")String role, @RequestHeader(value = "name", required = false)String name){
+
+        List<ApplicationResponse> response = applicationService.getList(memberId, role,name,false);
         return new LmsResponse<>(HttpStatus.OK, response, "조회 성공", "", LocalDateTime.now());
     }
 
@@ -38,8 +39,8 @@ public class ApplicationController {
 
     // 승인된 수강신청 목록 보기
     @GetMapping("/accept")
-    public LmsResponse<List<ApplicationResponse>> getAcceptList(@RequestHeader(value = "member-id") String memberId){
-        List<ApplicationResponse> response = applicationService.getList(memberId,true);
+    public LmsResponse<List<ApplicationResponse>> getAcceptList(@RequestHeader(value = "member-id",required = false) String memberId, @RequestHeader(value = "role",required = false)String role, @RequestHeader(value = "name", required = false)String name){
+        List<ApplicationResponse> response = applicationService.getList(memberId,role,name,true);
         return new LmsResponse<>(HttpStatus.OK, response, "조회 성공", "", LocalDateTime.now());
     }
 

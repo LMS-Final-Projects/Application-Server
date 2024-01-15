@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Setter
 public class DeleteRequest {
 
-    private List<Long> courseIds;
+    private List<Integer> courseIds;
 
     public List<Application> toEntities() {
         return courseIds.stream()

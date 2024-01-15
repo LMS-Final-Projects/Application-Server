@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class ManageApplicationResponse {
-    private Long id;
-    private Long lectureId;
+    private Integer id;
+    private Integer lectureId;
     private String lectureName;
     private String professorName;
     private Integer score;
-    private Long maximumNumber;
+    private Integer maximumNumber;
     private String memberId;
     private String name;
 

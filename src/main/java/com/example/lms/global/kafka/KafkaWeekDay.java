@@ -1,7 +1,6 @@
-package com.example.lms.application.entity;
+package com.example.lms.global.kafka;
 
-
-import jakarta.persistence.*;
+import com.example.lms.application.entity.Lecture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,18 +9,19 @@ import lombok.NoArgsConstructor;
 import java.time.DayOfWeek;
 import java.util.List;
 
-@Entity
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class WeekDay {
+public class KafkaWeekDay {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String memberId;
+
     private DayOfWeek dayOfWeek;
+
     private Integer lectureId;
 
+    private KafkaAction kafkaAction;
 }

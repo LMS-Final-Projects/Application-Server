@@ -10,13 +10,13 @@ public class CheckRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public Long increment(Long lectureId) {
+    public Long increment(Integer lectureId) {
         return redisTemplate
                 .opsForValue()
                 .increment(String.valueOf(lectureId));
     }
 
-    public Long decrement(Long lectureId) {
+    public Long decrement(Integer lectureId) {
         return redisTemplate
                 .opsForValue()
                 .decrement(String.valueOf(lectureId));
