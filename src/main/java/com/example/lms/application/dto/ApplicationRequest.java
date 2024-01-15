@@ -14,5 +14,5 @@ import java.time.DayOfWeek;
 @AllArgsConstructor
 @Builder
 public class ApplicationRequest {
-    private Long lectureId;
+    private Integer lectureId;
 }

@@ -1,8 +1,6 @@
 package com.example.lms.global.kafka;
 
-import com.example.lms.application.entity.Lecture;
-import com.example.lms.application.entity.Member;
-import com.example.lms.application.entity.Semester;
+import com.example.lms.application.entity.*;
 import com.example.lms.application.repository.LectureRepository;
 import com.example.lms.application.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,19 +50,35 @@ public class KafkaConsumer {
             map = mapper.readValue(kafkaMessage, new TypeReference<>() {});
             String action = (String) map.get("kafkaAction");
             if (action.equals(KafkaAction.CREATE.name())) {
+                Object dayOfWeek = map.get("dayOfWeek");
+                DayOfWeek dayOfWeekValue = null;
+
+                if (dayOfWeek instanceof String) {
+                    String dayOfWeekString = (String) dayOfWeek;
+                    dayOfWeekValue = DayOfWeek.valueOf(dayOfWeekString);
+                }
+
+                Object semester = map.get("semester");
+                Semester semesterValue = null;
+                if (semester instanceof String) {
+                    String semesterString = (String) semester;
+                    semesterValue = Semester.valueOf(semesterString);
+                }
+
                 Lecture build = Lecture.builder()
                         .memberId((String) map.get("memberId"))
-                        .lectureId((Long) map.get("lectureId"))
+                        .lectureId((Integer) map.get("lectureId"))
                         .lectureName((String) map.get("lectureName"))
                         .professorName((String) map.get("professorName"))
                         .score((Integer) map.get("score"))
-                        .startTime((Integer)map.get("startTime"))
-                        .semester((Semester) map.get("semester"))
-                        .maximumNumber((Long)map.get("maximumNumber"))
-                        .dayOfWeek((DayOfWeek) map.get("dayOfWeek"))
+                        .startTime((Integer) map.get("startTime"))
+                        .semester(semesterValue)
+                        .maximumNumber((Integer) map.get("maximumNumber"))
+                        .dayOfWeek(dayOfWeekValue)
                         .year((Integer) map.get("year"))
                         .classTimes((List<Integer>) map.get("classTimes"))
                         .build();
+
                 lectureRepository.save(build);
                 System.out.println(map);
             }
@@ -72,6 +86,5 @@ public class KafkaConsumer {
             ex.printStackTrace();
         }
     }
-
 }
 

@@ -18,11 +18,11 @@ import java.util.List;
 public class Lecture {
 
     @Id
-    private Long lectureId;
+    private Integer lectureId;
     private String memberId;
     private String lectureName;
     private String professorName;
-    private Long maximumNumber;
+    private Integer maximumNumber;
     private Integer score;
     private Integer startTime; //시작 시간
     private Integer year;

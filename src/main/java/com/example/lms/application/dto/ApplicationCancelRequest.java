@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ApplicationCancelRequest {
-    private Long lectureId;
+    private Integer lectureId;
 }

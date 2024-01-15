@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ScheduleRequest {
     private String memberId;
+
+    private Integer lectureId;
     private Semester semester;
     private Integer year;
 
